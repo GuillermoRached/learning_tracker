@@ -7,6 +7,8 @@
     <div class="progress-fill" style="--percentage: {percentage}%"></div>
     {#if (percentage < 25)}
         <div class="below-25-label" style="--percentage: {percentage}%">{percentage}%</div>
+    {:else if (percentage == 100)}
+        <div class="completed-label" style="--percentage: {percentage}%">{percentage}%</div>
     {:else}
         <div class="progress-label" style="--percentage: {percentage}%">{percentage}%</div>
     {/if}
@@ -51,6 +53,20 @@
         position: absolute;
         top: 0;
         left: max(calc(var(--percentage) - 42px), -10px); /* Adjust label position */
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-weight: bold;
+        color: white;
+        width: 50px;
+        transition: left 0.3s;  /* Smooth transition as percentage changes */
+    }
+
+    .completed-label {
+        position: absolute;
+        top: 0;
+        left: 45%; /* Adjust label position */
         height: 100%;
         display: flex;
         justify-content: center;
