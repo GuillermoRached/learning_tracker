@@ -19,6 +19,7 @@
           name: "Read chapter 1 of Networking Basics",
           description: "Learning about protocols",
           minutes: 30,
+          essay: "",
           done: true,
         },
         {
@@ -27,6 +28,7 @@
           description:
             "practice html, css, and js by creating a svelete component",
           minutes: 45,
+          essay: "",
           done: true,
         },
       ],
@@ -44,6 +46,7 @@
           description:
             "Learning what Marcus Aurelius had thought of as important",
           minutes: 2,
+          essay: "",
           done: true,
         },
         {
@@ -52,6 +55,7 @@
           description:
             "practice html, css, and js by creating a svelete component",
           minutes: 60,
+          essay: "",
           done: true,
         },
         {
@@ -60,6 +64,7 @@
           description:
             "Education about mental health in relation to gaming and goals.",
           minutes: 20,
+          essay: "",
           done: true,
         },
       ],
@@ -77,6 +82,7 @@
           description:
             "Learning what Marcus Aurelius had thought of as important",
           minutes: 2,
+          essay: "",
           done: true,
         },
         {
@@ -85,6 +91,7 @@
           description:
             "Starting senior design and meeting with professor to get feedback on project idea.",
           minutes: 40,
+          essay: "",
           done: true,
         },
         {
@@ -93,6 +100,7 @@
           description:
             "practice html, css, and js by creating a svelete component",
           minutes: 45,
+          essay: "",
           done: true,
         },
         {
@@ -101,6 +109,7 @@
           description:
             "Learning about lower level concepts and how to analyze malware safely.",
           minutes: 60,
+          essay: "",
           done: true,
         },
       ],
@@ -162,20 +171,19 @@
     <NewTask bind:taskList={tasks} />
   </div>
   <div class="bottom-row">
-    <TodoList {tasks} bind:selectedTask />
+    <TodoList {tasks} bind:selectedTask={selectedTask} />
     {#if selectedTask}
-      <div class="bottom-separator">
         <svg>
           <circle cx="25%" cy="50%" r="5" />
           <circle cx="50%" cy="50%" r="5" />
           <circle cx="75%" cy="50%" r="5" />
         </svg>
-      </div>
-      <SelectedTask bind:selectedTask />
+      <SelectedTask bind:tasks bind:selectedTask={selectedTask} />
     {/if}
   </div>
 
   <!-- Feelings of the day -->
+   
 </div>
 
 <style>
@@ -188,8 +196,15 @@
 
   .top-row {
     display: flex;
-    justify-content: space-around;
-    margin-bottom: 10rem;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+  }
+
+  .profile-progress {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50%;
   }
 
   .bottom-row {

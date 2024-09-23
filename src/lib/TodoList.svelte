@@ -13,14 +13,8 @@
         <!-- svelte-ignore a11y-click-events-have-key-events -->
         <!-- svelte-ignore a11y-no-static-element-interactions -->
         <div
-            class="todo-item {task.done ? 'done' : ''}"
-            on:click={() => selectTask(task)}
-            style="background-color: {task === selectedTask
-                ? '#8a8a8a'
-                : '#e0e0e0'}; color: {task === selectedTask
-                ? '#fff'
-                : '#000'}"
-        >
+            class="todo-item {task == selectedTask ? "selected" : ""} {task.done ? 'done' : 'pending'}"
+            on:click={() => selectTask(task)}>
             <span class="task-name">{task.name}</span>
         </div>
     {/each}
@@ -32,6 +26,7 @@
         padding: 10px;
         border: 2px solid black;
         border-radius: 10px;
+        width: 100%;
     }
     
     .title {
@@ -41,10 +36,11 @@
     }
 
     .todo-item {
-        padding: 5px 15rem 5px 5px;
+        padding: 5px 0% 5px 5px;
         cursor: pointer;
         margin-bottom: 5px;
         border-radius: 5px;
+        background-color: #e0e0e0;
     }
 
     .task-name {
@@ -53,6 +49,17 @@
 
     .todo-item.done {
         text-decoration: line-through;
+        background-color: aquamarine;
         color: green;
+    }
+
+    .todo-item.done.selected {
+        text-decoration: line-through;
+        background-color: aquamarine;
+        color: green;
+    }
+
+    .todo-item.selected {
+        background-color: #8a8a8a;
     }
 </style>
