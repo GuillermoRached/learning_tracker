@@ -158,15 +158,19 @@
 
   let selectedTask;
 
-  const getProgress = () =>
-    Math.round((tasks.filter((t) => t.done).length / tasks.length) * 100);
+  let progress;
+
+  const getProgress = (taskList) =>
+    Math.round((taskList.filter((t) => t.done).length / taskList.length) * 100);
+
+  $: progress = getProgress(tasks);
 </script>
 
 <div class="app-container">
   <div class="top-row">
     <div class="profile-progress">
       <Profile user={sampleUser} />
-      <ProgressBar percentage={getProgress()} />
+      <ProgressBar percentage={progress} />
     </div>
     <NewTask bind:taskList={tasks} />
   </div>
