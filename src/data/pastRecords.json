@@ -1,0 +1,79 @@
+{
+    "records": [
+        {
+            "day": "1",
+            "time": "14:30:00",
+            "imageUrl": "https://i.redd.it/duv11av99nm11.png",
+            "tasks": [
+                {
+                    "id": 1,
+                    "name": "Read chapter 1 of Networking Basics",
+                    "description": "Learning about protocols",
+                    "done": true
+                },
+                {
+                    "id": 2,
+                    "name": "Complete a svelte component",
+                    "description": "practice html, css, and js by creating a svelete component",
+                    "done": true
+                }
+            ]
+        },
+        {
+            "day": "2",
+            "time": "14:30:00",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Marcus_Aurelius_Glyptothek_Munich.jpg/1200px-Marcus_Aurelius_Glyptothek_Munich.jpg",
+            "tasks": [
+                {
+                    "id": 1,
+                    "name": "Read entry of Meditations",
+                    "description": "Learning what Marcus Aurelius had thought of as important",
+                    "done": true
+                },
+                {
+                    "id": 2,
+                    "name": "Complete a svelte component",
+                    "description": "practice html, css, and js by creating a svelete component",
+                    "done": true
+                },
+                {
+                    "id": 3,
+                    "name": "Watch a HealthyGamer video",
+                    "description": "Education about mental health in relation to gaming and goals.",
+                    "done": true
+                }
+            ]
+        },
+        {
+            "day": "3",
+            "time": "14:30:00",
+            "imageUrl": "https://static.wikia.nocookie.net/mrrobot/images/3/3e/Elliot.jpg/revision/latest?cb=20240118015330",
+            "tasks": [
+                {
+                    "id": 1,
+                    "name": "Read entry of Meditations",
+                    "description": "Learning what Marcus Aurelius had thought of as important",
+                    "done": true
+                },
+                {
+                    "id": 2,
+                    "name": "Meet with professor for senior design advising",
+                    "description": "Starting senior design and meeting with professor to get feedback on project idea.",
+                    "done": true
+                },
+                {
+                    "id": 3,
+                    "name": "Complete a svelte component",
+                    "description": "practice html, css, and js by creating a svelete component",
+                    "done": true
+                },
+                {
+                    "id": 4,
+                    "name": "Read a chapter of Practical Malware Analysis",
+                    "description": "Learning about lower level concepts and how to analyze malware safely.",
+                    "done": true
+                }
+            ]
+        }
+    ]
+}

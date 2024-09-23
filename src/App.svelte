@@ -1,47 +1,200 @@
 <script>
-  import svelteLogo from './assets/svelte.svg'
-  import viteLogo from '/vite.svg'
-  import Counter from './lib/Counter.svelte'
+  import Profile from "./lib/Profile.svelte";
+  import ProgressBar from "./lib/ProgressBar.svelte";
+  import NewTask from "./lib/NewTask.svelte";
+  import TodoList from "./lib/TodoList.svelte";
+  import SelectedTask from "./lib/SelectedTask.svelte";
+
+  const today = new Date();
+
+  const previousData = [
+    {
+      day: 1,
+      time: "14:30:00",
+      imageUrl: "https://i.redd.it/duv11av99nm11.png",
+      feelings: [],
+      tasks: [
+        {
+          id: 1,
+          name: "Read chapter 1 of Networking Basics",
+          description: "Learning about protocols",
+          minutes: 30,
+          done: true,
+        },
+        {
+          id: 2,
+          name: "Complete a svelte component",
+          description:
+            "practice html, css, and js by creating a svelete component",
+          minutes: 45,
+          done: true,
+        },
+      ],
+    },
+    {
+      day: 2,
+      time: "14:30:00",
+      imageUrl:
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Marcus_Aurelius_Glyptothek_Munich.jpg/1200px-Marcus_Aurelius_Glyptothek_Munich.jpg",
+      feelings: [],
+      tasks: [
+        {
+          id: 1,
+          name: "Read entry of Meditations",
+          description:
+            "Learning what Marcus Aurelius had thought of as important",
+          minutes: 2,
+          done: true,
+        },
+        {
+          id: 2,
+          name: "Complete a svelte component",
+          description:
+            "practice html, css, and js by creating a svelete component",
+          minutes: 60,
+          done: true,
+        },
+        {
+          id: 3,
+          name: "Watch a HealthyGamer video",
+          description:
+            "Education about mental health in relation to gaming and goals.",
+          minutes: 20,
+          done: true,
+        },
+      ],
+    },
+    {
+      day: 3,
+      time: "14:30:00",
+      imageUrl:
+        "https://static.wikia.nocookie.net/mrrobot/images/3/3e/Elliot.jpg/revision/latest?cb=20240118015330",
+      feelings: [],
+      tasks: [
+        {
+          id: 1,
+          name: "Read entry of Meditations",
+          description:
+            "Learning what Marcus Aurelius had thought of as important",
+          minutes: 2,
+          done: true,
+        },
+        {
+          id: 2,
+          name: "Meet with professor for senior design advising",
+          description:
+            "Starting senior design and meeting with professor to get feedback on project idea.",
+          minutes: 40,
+          done: true,
+        },
+        {
+          id: 3,
+          name: "Complete a svelte component",
+          description:
+            "practice html, css, and js by creating a svelete component",
+          minutes: 45,
+          done: true,
+        },
+        {
+          id: 4,
+          name: "Read a chapter of Practical Malware Analysis",
+          description:
+            "Learning about lower level concepts and how to analyze malware safely.",
+          minutes: 60,
+          done: true,
+        },
+      ],
+    },
+  ];
+
+  const getActiveDays = () => {
+    return previousData.length;
+  };
+
+  const getPreviousDays = () => {
+    let dayList = [];
+    for (const record of previousData) {
+      let d = new Date();
+      d.setDate(d.getDate() - record.day);
+      d.setHours(
+        Number(record.time.substring(0, record.time.indexOf(":"))),
+        Number(
+          record.time.substring(
+            record.time.indexOf(":") + 1,
+            record.time.lastIndexOf(":"),
+          ),
+        ),
+        Number(record.time.substring(record.time.lastIndexOf(":") + 1)),
+      );
+      dayList.push();
+    }
+    return dayList;
+  };
+
+  const sampleUser = {
+    name: "Sample User",
+    started: new Date(),
+    activeDays: getActiveDays(),
+    imageUrl: "",
+  };
+
+  let tasks = [
+    {
+      id: 1,
+      name: "Task 1",
+      description: "Description for task 1",
+      done: false,
+    },
+  ];
+
+  let selectedTask;
+
+  const getProgress = () =>
+    Math.round((tasks.filter((t) => t.done).length / tasks.length) * 100);
 </script>
 
-<main>
-  <div>
-    <a href="https://vitejs.dev" target="_blank" rel="noreferrer">
-      <img src={viteLogo} class="logo" alt="Vite Logo" />
-    </a>
-    <a href="https://svelte.dev" target="_blank" rel="noreferrer">
-      <img src={svelteLogo} class="logo svelte" alt="Svelte Logo" />
-    </a>
+<div class="app-container">
+  <div class="top-row">
+    <div class="profile-progress">
+      <Profile user={sampleUser} />
+      <ProgressBar percentage={getProgress()} />
+    </div>
+    <NewTask bind:taskList={tasks} />
   </div>
-  <h1>Vite + Svelte</h1>
-
-  <div class="card">
-    <Counter />
+  <div class="bottom-row">
+    <TodoList {tasks} bind:selectedTask />
+    {#if selectedTask}
+      <div class="bottom-separator">
+        <svg>
+          <circle cx="25%" cy="50%" r="5" />
+          <circle cx="50%" cy="50%" r="5" />
+          <circle cx="75%" cy="50%" r="5" />
+        </svg>
+      </div>
+      <SelectedTask bind:selectedTask />
+    {/if}
   </div>
 
-  <p>
-    Check out <a href="https://github.com/sveltejs/kit#readme" target="_blank" rel="noreferrer">SvelteKit</a>, the official Svelte app framework powered by Vite!
-  </p>
-
-  <p class="read-the-docs">
-    Click on the Vite and Svelte logos to learn more
-  </p>
-</main>
+  <!-- Feelings of the day -->
+</div>
 
 <style>
-  .logo {
-    height: 6em;
-    padding: 1.5em;
-    will-change: filter;
-    transition: filter 300ms;
+  .app-container {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    font-family: Arial, sans-serif;
   }
-  .logo:hover {
-    filter: drop-shadow(0 0 2em #646cffaa);
+
+  .top-row {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 10rem;
   }
-  .logo.svelte:hover {
-    filter: drop-shadow(0 0 2em #ff3e00aa);
-  }
-  .read-the-docs {
-    color: #888;
+
+  .bottom-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
   }
 </style>
