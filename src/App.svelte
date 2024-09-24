@@ -4,15 +4,17 @@
   import NewTask from "./lib/NewTask.svelte";
   import TodoList from "./lib/TodoList.svelte";
   import SelectedTask from "./lib/SelectedTask.svelte";
+  import HamburgerMenu from "./lib/HamburgerMenu.svelte";
+  import FeelingToday from "./lib/FeelingToday.svelte";
 
   const today = new Date();
 
-  const previousData = [
+  const data = [
     {
       day: 1,
       time: "14:30:00",
       imageUrl: "https://i.redd.it/duv11av99nm11.png",
-      feelings: [],
+      feeling: "bad",
       tasks: [
         {
           id: 1,
@@ -38,7 +40,7 @@
       time: "14:30:00",
       imageUrl:
         "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Marcus_Aurelius_Glyptothek_Munich.jpg/1200px-Marcus_Aurelius_Glyptothek_Munich.jpg",
-      feelings: [],
+      feeling: "good",
       tasks: [
         {
           id: 1,
@@ -74,7 +76,7 @@
       time: "14:30:00",
       imageUrl:
         "https://static.wikia.nocookie.net/mrrobot/images/3/3e/Elliot.jpg/revision/latest?cb=20240118015330",
-      feelings: [],
+      feeling: "good",
       tasks: [
         {
           id: 1,
@@ -116,13 +118,25 @@
     },
   ];
 
-  const getActiveDays = () => {
-    return previousData.length;
+  let dayData = {
+    day: 4,
+    time: `${today.getHours()}:${today.getMinutes()}:${today.getSeconds()}`,
+    imageUrl:
+      "images/calcifer.png",
+    feeling: "",
+    tasks: [
+    ],
   };
 
-  const getPreviousDays = () => {
+  data.push(dayData)  
+
+  const getDay = (index) => {
+    return data[index];
+  }
+
+  const getDays = (data) => {
     let dayList = [];
-    for (const record of previousData) {
+    for (const record of data) {
       let d = new Date();
       d.setDate(d.getDate() - record.day);
       d.setHours(
@@ -135,26 +149,21 @@
         ),
         Number(record.time.substring(record.time.lastIndexOf(":") + 1)),
       );
-      dayList.push();
+      dayList.push(d);
     }
     return dayList;
   };
 
+  const getActiveDays = () => {
+    return data.length;
+  };
+  
   const sampleUser = {
     name: "Sample User",
     started: new Date(),
     activeDays: getActiveDays(),
-    imageUrl: "",
+    imageUrl: dayData.imageUrl,
   };
-
-  let tasks = [
-    {
-      id: 1,
-      name: "Task 1",
-      description: "Description for task 1",
-      done: false,
-    },
-  ];
 
   let selectedTask;
 
@@ -164,30 +173,53 @@
     Math.round((taskList.filter((t) => t.done).length / taskList.length) * 100);
 
   $: progress = getProgress(tasks);
+
+  let allDays;
+  let currentDay = data.length - 1;
+  let feelingTotal;
+
+  const getTotalFeeling = (oldData, newData) => {
+    let totalGood = 0,
+      totalBad = 0,
+      totalNeutral = 0;
+    for (const record of oldData) {
+      if (record.feeling == "good") totalGood += 1;
+      else if (record.feeling == "bad") totalBad += 1;
+      else if (record.feeling == "neutral") totalNeutral += 1;
+    }
+
+    return [totalBad, totalNeutral, totalGood];
+  };
+
+  $: feelingTotal = getTotalFeeling(data, dayData);
+  $: allDays = getDays(data);
+  $: dayData = getDay(currentDay)
+  $: tasks = dayData.tasks
 </script>
 
 <div class="app-container">
+  <HamburgerMenu days={allDays} bind:currentDay/>
   <div class="top-row">
     <div class="profile-progress">
-      <Profile user={sampleUser} />
+      <Profile user={sampleUser} feelings={feelingTotal} />
       <ProgressBar percentage={progress} />
     </div>
-    <NewTask bind:taskList={tasks} />
+    <NewTask bind:dayData={dayData} />
   </div>
   <div class="bottom-row">
-    <TodoList {tasks} bind:selectedTask={selectedTask} />
+    <TodoList {tasks} bind:selectedTask />
     {#if selectedTask}
-        <svg>
-          <circle cx="25%" cy="50%" r="5" />
-          <circle cx="50%" cy="50%" r="5" />
-          <circle cx="75%" cy="50%" r="5" />
-        </svg>
-      <SelectedTask bind:tasks bind:selectedTask={selectedTask} />
+      <svg>
+        <circle cx="25%" cy="50%" r="5" />
+        <circle cx="50%" cy="50%" r="5" />
+        <circle cx="75%" cy="50%" r="5" />
+      </svg>
+      <SelectedTask bind:tasks bind:selectedTask />
     {/if}
   </div>
 
   <!-- Feelings of the day -->
-   
+  <FeelingToday bind:dayData />
 </div>
 
 <style>
@@ -200,7 +232,7 @@
 
   .top-row {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     margin-bottom: 2rem;
   }
 
@@ -208,12 +240,13 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 50%;
+    margin-right:auto;
+    margin-left:auto;
   }
 
   .bottom-row {
     display: flex;
     align-items: center;
-    justify-content: space-around;
+    justify-content: center;
   }
 </style>

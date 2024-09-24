@@ -1,5 +1,7 @@
 <script>
-    export let taskList = [];
+    export let dayData;
+
+    let taskList = dayData.tasks
 
     let newTaskName = "";
     let newTaskDescription = "";
@@ -16,6 +18,8 @@
                     done: false,
                 },
             ];
+            dayData.tasks = taskList;
+            dayData = dayData;
             newTaskName = "";
             newTaskDescription = "";
         }
@@ -52,6 +56,7 @@
         border-style: solid;
         border-radius: 10px;
         background-color: #ffffff;
+        margin-right: auto;
     }
 
     .title {

@@ -24,6 +24,7 @@
 
 <div class="selected-task-container">
     <h1 class="title">Selected Task</h1>
+    <button class="close-button" on:click={() => {selectedTask = null;}}>X</button>
     <div class="input-container">
         <input
             type="text"
@@ -64,6 +65,7 @@
 
 <style>
     .selected-task-container {
+        position: relative;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -75,6 +77,11 @@
 
     .title {
         font-size: x-large;
+    }
+
+    .close-button {
+        position:absolute;
+        right: 0;
     }
 
     .input-container {

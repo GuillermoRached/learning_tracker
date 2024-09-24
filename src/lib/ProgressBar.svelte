@@ -5,7 +5,9 @@
 
 <div class="progress-container">
     <div class="progress-fill" style="--percentage: {percentage}%"></div>
-    {#if (percentage < 25)}
+    {#if (isNaN(percentage))}
+    <div class="start-label" style="--percentage: {percentage}%">Get Started!</div>
+    {:else if (percentage < 25)}
         <div class="below-25-label" style="--percentage: {percentage}%">{percentage}%</div>
     {:else if (percentage == 100)}
         <div class="completed-label" style="--percentage: {percentage}%">{percentage}%</div>
@@ -74,6 +76,19 @@
         font-weight: bold;
         color: white;
         width: 50px;
+        transition: left 0.3s;  /* Smooth transition as percentage changes */
+    }
+
+    .start-label {
+        position: absolute;
+        top: 0;
+        left: 36%; /* Adjust label position */
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-weight: bold;
+        color: rgb(0, 0, 0);
         transition: left 0.3s;  /* Smooth transition as percentage changes */
     }
 </style>
