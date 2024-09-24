@@ -75,7 +75,7 @@
       day: 3,
       time: "14:30:00",
       imageUrl:
-        "https://static.wikia.nocookie.net/mrrobot/images/3/3e/Elliot.jpg/revision/latest?cb=20240118015330",
+        "https://openpsychometrics.org/tests/characters/test-resources/pics/MR/1.jpg",
       feeling: "good",
       tasks: [
         {
@@ -159,7 +159,7 @@
   };
   
   const sampleUser = {
-    name: "Sample User",
+    name: "Guillermo Rached",
     started: new Date(),
     activeDays: getActiveDays(),
     imageUrl: dayData.imageUrl,
@@ -177,12 +177,13 @@
   let allDays;
   let currentDay = data.length - 1;
   let feelingTotal;
+  let minutesTotal;
 
-  const getTotalFeeling = (oldData, newData) => {
+  const getTotalFeeling = (data) => {
     let totalGood = 0,
       totalBad = 0,
       totalNeutral = 0;
-    for (const record of oldData) {
+    for (const record of data) {
       if (record.feeling == "good") totalGood += 1;
       else if (record.feeling == "bad") totalBad += 1;
       else if (record.feeling == "neutral") totalNeutral += 1;
@@ -191,17 +192,28 @@
     return [totalBad, totalNeutral, totalGood];
   };
 
-  $: feelingTotal = getTotalFeeling(data, dayData);
+  const getTotalMinutes = (data) => {
+    let mins = 0;
+    for (const record of data) {
+      for (const task of record.tasks) {
+        mins += task.minutes;
+      }
+    }
+    return mins;
+  }
+
+  $: feelingTotal = getTotalFeeling(data);
   $: allDays = getDays(data);
   $: dayData = getDay(currentDay)
   $: tasks = dayData.tasks
+  $: minutesTotal = getTotalMinutes(data);
 </script>
 
 <div class="app-container">
   <HamburgerMenu days={allDays} bind:currentDay/>
   <div class="top-row">
     <div class="profile-progress">
-      <Profile user={sampleUser} feelings={feelingTotal} />
+      <Profile user={sampleUser} feelings={feelingTotal} dayData={dayData} minutes={minutesTotal}/>
       <ProgressBar percentage={progress} />
     </div>
     <NewTask bind:dayData={dayData} />
