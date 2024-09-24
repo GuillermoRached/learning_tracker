@@ -1,47 +1,97 @@
-# Svelte + Vite
+# Learning Growth Tracker
 
-This template should help get you started developing with Svelte in Vite.
+## Overview
+The **Learning Growth Tracker** is a journaling application designed to help users track their tasks, reinforce learning, and monitor personal growth over time. The application allows users to add tasks, mark them as complete, and reflect on the learning experience. Each completed task requires the user to input the time spent and a small reflective essay. Additionally, users can view and edit previous entries, making it a comprehensive learning tool.
 
-## Recommended IDE Setup
+## Features
+1. **Task Management**:
+   - Add new tasks with a description and name.
+   - View a to-do list that shows both active and completed tasks.
+   - Mark tasks as done by entering the time spent and a reflective essay.
 
-[VS Code](https://code.visualstudio.com/) + [Svelte](https://marketplace.visualstudio.com/items?itemName=svelte.svelte-vscode).
+2. **Progress Tracking**:
+   - Track progress with a dynamic progress bar that adjusts based on completed tasks.
+   - Easily review progress made during a single session and track over time.
 
-## Need an official Svelte framework?
+3. **Mood Tracker**:
+   - At the end of each session, users can input how they are feeling using mood icons (`Bad`, `Neutral`, `Good`).
+   - The mood tracker allows the user to associate their emotional state with their learning experience.
 
-Check out [SvelteKit](https://github.com/sveltejs/kit#readme), which is also powered by Vite. Deploy anywhere with its serverless-first approach and adapt to various platforms, with out of the box support for TypeScript, SCSS, and Less, and easily-added support for mdsvex, GraphQL, PostCSS, Tailwind CSS, and more.
+4. **Editable Entries**:
+   - All entries can be reviewed and edited, allowing users to reflect back on previous days.
+   - Journaling is organized by date, with easy access to past entries and stats about daily productivity.
 
-## Technical considerations
+## How to Use
 
-**Why use this over SvelteKit?**
+### 1. Add a Task
+- **Step 1**: In the top-right panel, enter a new task by filling out the **Task Name** and **Task Description** fields.
+- **Step 2**: Click the "Add" button. The task will be added to your **To-Do List** in the middle of the page.
 
-- It brings its own routing solution which might not be preferable for some users.
-- It is first and foremost a framework that just happens to use Vite under the hood, not a Vite app.
+### 2. Complete a Task
+- **Step 1**: When you've finished a task, click on it in the **To-Do List**.
+- **Step 2**: The task will open in a detailed panel where you can write a reflection and input the minutes spent.
+- **Step 3**: Click "Complete". This will mark the task as done and move it to the completed section.
 
-This template contains as little as possible to get started with Vite + Svelte, while taking into account the developer experience with regards to HMR and intellisense. It demonstrates capabilities on par with the other `create-vite` templates and is a good starting point for beginners dipping their toes into a Vite + Svelte project.
+### 3. Record Reflection
+- Each completed task requires a reflective essay to reinforce learning. When you complete a task, input your reflection in the provided text area.
+- This journal will help users learn from their completed tasks, making it easier to recall and retain the knowledge gained.
 
-Should you later need the extended capabilities and extensibility provided by SvelteKit, the template has been structured similarly to SvelteKit so that it is easy to migrate.
+### 4. Track Mood
+- **Step 1**: At the bottom of the interface, choose how you feel after completing your tasks by selecting one of the three mood icons: **Bad**, **Neutral**, or **Good**.
+- **Step 2**: Your mood will be saved for each session and associated with your performance on that day.
 
-**Why `global.d.ts` instead of `compilerOptions.types` inside `jsconfig.json` or `tsconfig.json`?**
+### 5. View Past Entries
+- Use the date picker (once implemented) to navigate through past days, review your previous tasks, and reflect on your overall growth.
 
-Setting `compilerOptions.types` shuts out all other types not explicitly listed in the configuration. Using triple-slash references keeps the default TypeScript setting of accepting type information from the entire workspace, while also adding `svelte` and `vite/client` type information.
+## Color Scheme
+The color scheme has been chosen to enhance readability and support emotional cues:
+- **Task Completed**: Light green background indicates completion.
+- **Bad Mood**: Red background when selected.
+- **Neutral Mood**: Gray background when selected.
+- **Good Mood**: Green background when selected.
+- **Add Button**: Soft blue for a friendly, noticeable action button.
+- **Progress Bar**: Gradient green showing growth and success.
 
-**Why include `.vscode/extensions.json`?**
+## Technologies Used
+- **Frontend**: 
+  - **Svelte**: A lightweight framework for building fast and interactive user interfaces.
+  - **JavaScript**: For logic handling and interaction.
+  - **CSS**: For layout and styling of the components.
 
-Other templates indirectly recommend extensions via the README, but this file allows VS Code to prompt the user to install the recommended extension upon opening the project.
+## Future Enhancements
+1. **Analytics Dashboard**: Visualize productivity over time, track how much time is spent per task category, and analyze learning trends.
+2. **Task Categories**: Add tags or categories to tasks (e.g., work, personal, study) for better organization.
+3. **Date Navigation**: Allow users to browse through historical data by selecting dates, providing them with insights into their growth.
+4. **Customizable Themes**: Users can choose from a variety of color schemes based on personal preference.
 
-**Why enable `checkJs` in the JS template?**
+## Installation
 
-It is likely that most cases of changing variable types in runtime are likely to be accidental, rather than deliberate. This provides advanced typechecking out of the box. Should you like to take advantage of the dynamically-typed nature of JavaScript, it is trivial to change the configuration.
+### Prerequisites
+- **Node.js** and **npm** installed.
 
-**Why is HMR not preserving my local component state?**
+### Steps
+1. Clone the repository
 
-HMR state preservation comes with a number of gotchas! It has been disabled by default in both `svelte-hmr` and `@sveltejs/vite-plugin-svelte` due to its often surprising behavior. You can read the details [here](https://github.com/sveltejs/svelte-hmr/tree/master/packages/svelte-hmr#preservation-of-local-state).
+2. Install the dependencies:
+   ```bash
+   npm install
+   ```
 
-If you have state that's important to retain within a component, consider creating an external store which would not be replaced by HMR.
+3. Run the development server:
+   ```bash
+   npm run dev
+   ```
 
-```js
-// store.js
-// An extremely simple external store
-import { writable } from 'svelte/store'
-export default writable(0)
-```
+4. Open your browser and navigate to `http://localhost:5173` to view the application.
+
+## Contributing
+We welcome contributions! Feel free to fork the repository and submit a pull request with enhancements, bug fixes, or new features.
+
+## License
+This project is licensed under the MIT License. See the LICENSE file for more details.
+
+## Contact
+For any issues or feature requests, feel free to open an issue on GitHub or contact the developer:
+
+- Email: guillermorached@hotmail.com
+- GitHub: [GuillermoRached](https://github.com/GuillermoRached)
