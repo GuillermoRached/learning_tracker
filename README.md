@@ -87,9 +87,6 @@ The color scheme has been chosen to enhance readability and support emotional cu
 ## Contributing
 We welcome contributions! Feel free to fork the repository and submit a pull request with enhancements, bug fixes, or new features.
 
-## License
-This project is licensed under the MIT License. See the LICENSE file for more details.
-
 ## Contact
 For any issues or feature requests, feel free to open an issue on GitHub or contact the developer:
 
